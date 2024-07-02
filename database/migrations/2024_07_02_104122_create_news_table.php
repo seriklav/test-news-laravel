@@ -6,22 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
+            $table->string('url');
+            $table->enum('status', \App\Enums\NewsStatusEnum::asArray());
             $table->timestamps();
+        });
+
+        Schema::create('news_translations', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('news_id')->constrained()->cascadeOnDelete();
+            $table->string('locale')->index();
+            $table->string('title');
+            $table->text('short_description');
+            $table->text('full_description');
+
+            $table->unique(['news_id', 'locale']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
+        Schema::dropIfExists('news_translations');
         Schema::dropIfExists('news');
     }
 };

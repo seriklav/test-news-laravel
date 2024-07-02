@@ -1,0 +1,359 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation Laravel News",
+        "description": "API documentation for laravel news",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/news/{news}": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get one news by id",
+                "operationId": "getNewsShow",
+                "parameters": [
+                    {
+                        "name": "news",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResourceCollection"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Delete a news item",
+                "operationId": "deleteNews",
+                "parameters": [
+                    {
+                        "name": "news",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Update a news item",
+                "operationId": "updateNews",
+                "parameters": [
+                    {
+                        "name": "news",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateNewsRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/news": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get list of news",
+                "operationId": "getNewsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResourceCollection"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Store a new news item",
+                "operationId": "storeNews",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreNewsRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StoreNewsRequest": {
+                "title": "Store News Request",
+                "required": [
+                    "title",
+                    "url",
+                    "short_description",
+                    "full_description",
+                    "status"
+                ],
+                "properties": {
+                    "title": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Sample Title EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Sample Title UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "short_description": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Sample short description EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Sample short description UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "full_description": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Sample full description EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Sample full description UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "http://example.com/news"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateNewsRequest": {
+                "title": "Update News Request",
+                "properties": {
+                    "title": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Updated Title EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Updated Title UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "short_description": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Updated short description EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Updated short description UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "full_description": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Updated full description EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Updated full description UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "http://example.com/news"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "hidden"
+                    }
+                },
+                "type": "object"
+            },
+            "NewsResource": {
+                "title": "News Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Sample Title EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Sample Title UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "http://example.com/news"
+                    },
+                    "short_description": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Sample short description EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Sample short description UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "full_description": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "Sample full description EN"
+                            },
+                            "uk": {
+                                "type": "string",
+                                "example": "Sample full description UK"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-07-02T16:53:30.000000Z"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "active"
+                    },
+                    "status_name": {
+                        "type": "string",
+                        "example": "Active"
+                    }
+                },
+                "type": "object"
+            },
+            "NewsResourceCollection": {
+                "title": "News Resource Collection",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NewsResource"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
